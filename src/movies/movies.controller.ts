@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Req, Res } from "@nestjs/common";
 import { MoviesService } from "./movies.service";
 import { Movie } from "./entities/movie.entity";
 import { CreateMovieDto } from "./dto/create-movie.dto";
@@ -11,7 +11,8 @@ export class MoviesController {
   }
 
   @Get()
-  getAll() :Movie[]{
+  getAll(@Req() req, @Res() res) :Movie[]{  //express를 기반으로 하기 때문에 req와 res에 접근할 수 있다. 직접 사용하는건 좋은 방법은 아니다.
+    // res.json()  //express. 프레임워크를 바꾸고 싶으면?
     return this.moviesService.getAll();
   }
 
