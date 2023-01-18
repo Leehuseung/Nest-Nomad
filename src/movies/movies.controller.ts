@@ -10,8 +10,8 @@ export class MoviesController {
   constructor(private readonly moviesService: MoviesService) { // providers에서 선언한 service를 di
   }
 
-  @Get()
-  getAll(@Req() req, @Res() res) :Movie[]{  //express를 기반으로 하기 때문에 req와 res에 접근할 수 있다. 직접 사용하는건 좋은 방법은 아니다.
+  @Get() //@Req,@Res가 존재하면 Jest E2E test에서 행걸림(timeout)
+  getAll() :Movie[]{  //express를 기반으로 하기 때문에 req와 res에 접근할 수 있다. 직접 사용하는건 좋은 방법은 아니다.
     // res.json()  //express. 프레임워크를 바꾸고 싶으면?
     return this.moviesService.getAll();
   }
