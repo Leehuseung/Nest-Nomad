@@ -2,10 +2,14 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { Movie } from "./entities/movie.entity";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
+import { TasksService } from "../task/task.service";
 
 @Injectable()
 export class MoviesService {
   private movies:Movie[] = [];
+
+  constructor(private readonly taskService: TasksService) { // providers에서 선언한 service를 di
+  }
 
   getAll(): Movie[] {
     return this.movies;
@@ -40,5 +44,9 @@ export class MoviesService {
 
   scheduleMovie(){
     console.log('saersar');
+  }
+
+  dependencyTest(){
+    this.taskService.taskOne();
   }
 }

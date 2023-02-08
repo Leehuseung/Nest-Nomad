@@ -1,17 +1,29 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MoviesService } from './movies.service';
-import { defaultMetadataStorage } from "class-transformer/types/storage";
+import { MoviesService } from '../movies.service';
 import { NotFoundException } from "@nestjs/common";
+import { TasksService } from "../../task/task.service";
+
+
+const mockTasksService = {
+  taskOne: jest.fn(() => {
+    console.log('fn');
+    console.log('fn');
+    console.log('fn');
+  }),
+}
 
 describe('MoviesService', () => {
   let service: MoviesService;
 
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MoviesService],
-    }).compile();
+      imports: [],
+      providers: [MoviesService, TasksService],
+    }).overrideProvider(TasksService).useValue(mockTasksService).compile();
 
     service = module.get<MoviesService>(MoviesService);
+    jest.clearAllMocks()
   });
 
   it('should be defined', () => {
@@ -101,5 +113,9 @@ describe('MoviesService', () => {
       };
     })
   })
+
+  it('의존성 테스트', () => {
+    service.dependencyTest();
+  });
 
 });

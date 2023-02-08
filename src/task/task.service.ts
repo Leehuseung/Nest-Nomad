@@ -6,12 +6,16 @@ import { MoviesService } from "../movies/movies.service";
 export class TasksService {
   private readonly logger = new Logger(TasksService.name);
 
-  constructor(private readonly moviesService: MoviesService) { // providers에서 선언한 service를 di
+  constructor() { // providers에서 선언한 service를 di
   }
 
   @Cron('0/5 * * * * *')
   handleCron() {
-    this.moviesService.scheduleMovie();
+    // this.moviesService.scheduleMovie();
     // this.logger.debug('Called when the current second is 45');
+  }
+
+  taskOne() {
+    console.log('얍얍');
   }
 }

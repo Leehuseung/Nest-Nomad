@@ -5,6 +5,7 @@ import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
   imports: [ScheduleModule.forRoot()],
-  providers:[MoviesService, TasksService],
+  providers:[TasksService],
+  exports:[TasksService]
 })
 export class TaskModule {}
